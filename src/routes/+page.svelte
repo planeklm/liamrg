@@ -1,7 +1,7 @@
 <script>
-	import Icon from '@iconify/svelte';
-	import { fade, fly, scale } from 'svelte/transition';
-	import { onMount } from 'svelte';
+	import Icon from "@iconify/svelte";
+	import { fade, fly, scale } from "svelte/transition";
+	import { onMount } from "svelte";
 
 	let ready = false;
 
@@ -11,7 +11,10 @@
 {#if ready}
 	<div class="bg-white">
 		<header class="absolute inset-x-0 top-0 z-50">
-			<nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+			<nav
+				class="flex items-center justify-between p-6 lg:px-8"
+				aria-label="Global"
+			>
 				<div class="flex lg:flex-1">
 					<a href="#" class="-m-r5.5 p-1.5">
 						<span class="sr-only">Your Company</span>
@@ -68,7 +71,7 @@
 						<img
 							in:scale={{ duration: 1000, delay: 200 }}
 							class="h-36 w-auto rounded-full object-cover shadow-lg transition-transform hover:scale-105"
-							src="src/routes/liam.png"
+							src="https://files.catbox.moe/r6f4y3.png"
 							alt="Liam Rodgers-Gray"
 						/>
 					</div>
