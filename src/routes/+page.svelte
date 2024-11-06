@@ -1,11 +1,20 @@
 <script>
 	import Icon from "@iconify/svelte";
-	import { fade, fly, scale } from "svelte/transition";
+	import { fade, fly, scale, slide } from "svelte/transition";
 	import { onMount } from "svelte";
 
 	let ready = false;
+	let isMenuOpen = false;
+
+	let starNow = "https://starnow.com/u/liamrodgersgray/";
+	let youtube = "https://youtube.com/@liamrg08/";
+	let instagram = "https://instagram.com/liamrg08_/";
 
 	onMount(() => (ready = true));
+
+	const toggleMenu = () => {
+		isMenuOpen = !isMenuOpen;
+	};
 </script>
 
 {#if ready}
@@ -26,24 +35,46 @@
 						</p>
 					</a>
 				</div>
-				<!-- Mobile menu button remains the same -->
+				<div class="flex lg:hidden">
+					<button
+						type="button"
+						on:click={toggleMenu}
+						class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+					>
+						<span class="sr-only">Open main menu</span>
+						<svg
+							class="h-6 w-6"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+							aria-hidden="true"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+							/>
+						</svg>
+					</button>
+				</div>
 				<div class="hidden lg:flex lg:gap-x-12">
 					<a
-						href="https://youtube.com/@liamrg08/"
+						href={youtube}
 						in:fly={{ y: -20, duration: 1000, delay: 200 }}
 						class="text-3xl font-semibold text-gray-900 transition-transform hover:scale-110"
 					>
 						<Icon icon="line-md:youtube-filled" />
 					</a>
 					<a
-						href="https://www.instagram.com/liamrg08_/"
+						href={instagram}
 						in:fly={{ y: -20, duration: 1000, delay: 400 }}
 						class="text-3xl font-semibold text-gray-900 transition-transform hover:scale-110"
 					>
 						<Icon icon="line-md:instagram" />
 					</a>
 					<a
-						href="#"
+						href={starNow}
 						in:fly={{ y: -20, duration: 1000, delay: 600 }}
 						class="text-3xl font-semibold text-gray-900 transition-transform hover:scale-110"
 					>
@@ -60,11 +91,107 @@
 					</a>
 				</div>
 			</nav>
-			<!-- Mobile menu remains the same -->
+
+			<!-- Mobile menu -->
+			{#if isMenuOpen}
+				<div
+					class="lg:hidden"
+					role="dialog"
+					aria-modal="true"
+					transition:slide
+				>
+					<div
+						class="fixed inset-0 z-50 bg-black bg-opacity-25"
+						on:click={toggleMenu}
+					></div>
+					<div
+						class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
+					>
+						<div class="flex items-center justify-between">
+							<a href="#" class="-m-1.5 p-1.5">
+								<span class="sr-only">Your Company</span>
+								<p class="text-lg font-bold">Liam RG</p>
+							</a>
+							<button
+								type="button"
+								class="-m-2.5 rounded-md p-2.5 text-gray-700"
+								on:click={toggleMenu}
+							>
+								<span class="sr-only">Close menu</span>
+								<svg
+									class="h-6 w-6"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+									aria-hidden="true"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M6 18L18 6M6 6l12 12"
+									/>
+								</svg>
+							</button>
+						</div>
+						<div class="mt-6 flow-root">
+							<div class="-my-6 divide-y divide-gray-500/10">
+								<div class="space-y-2 py-6">
+									<a
+										href={youtube}
+										class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+									>
+										<div class="flex items-center gap-2">
+											<Icon
+												icon="line-md:youtube-filled"
+											/>
+											YouTube
+										</div>
+									</a>
+									<a
+										href={instagram}
+										class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+									>
+										<div class="flex items-center gap-2">
+											<Icon icon="line-md:instagram" />
+											Instagram
+										</div>
+									</a>
+									<a
+										href={starNow}
+										class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+									>
+										<div class="flex items-center gap-2">
+											<Icon icon="line-md:star-filled" />
+											StarNow
+										</div>
+									</a>
+								</div>
+								<div class="py-6">
+									<a
+										href="#"
+										class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+									>
+										Log in
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{/if}
 		</header>
 
 		<div class="relative isolate px-6 pt-15 lg:px-8">
-			<!-- Background gradients remain the same -->
+			<div
+				class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+				aria-hidden="true"
+			>
+				<div
+					class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#3662e3] to-[#3662e3] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+					style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
+				></div>
+			</div>
 			<div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
 				<div class="text-center">
 					<div class="mb-8 flex justify-center">
@@ -100,13 +227,20 @@
 					</div>
 				</div>
 			</div>
-			<!-- Bottom gradient remains the same -->
+			<div
+				class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+				aria-hidden="true"
+			>
+				<div
+					class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#3662e3] to-[#3662e3] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+					style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
+				></div>
+			</div>
 		</div>
 	</div>
 {/if}
 
 <style>
-	/* Optional: Add smooth transitions for all interactive elements */
 	:global(*) {
 		transition: all 0.2s ease-in-out;
 	}
